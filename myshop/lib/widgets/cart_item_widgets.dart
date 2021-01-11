@@ -26,6 +26,29 @@ class CartItemWidget extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
+      confirmDismiss:(_){
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Tem certeza que deseja excuilr esse item?'),
+            content: Text('Você podera adcionar o item novamento caso queira!'),
+            actions: [
+              FlatButton(
+                onPressed: (){
+                  Navigator.of(ctx).pop(false);
+                }, 
+                child: Text('Cancelar')
+              ),
+              FlatButton(
+                onPressed: (){
+                  Navigator.of(ctx).pop(true);
+                }, 
+                child: Text('Excluir')
+              ),
+            ],
+          )
+        );
+      },
       onDismissed: (_){
         Provider.of<Cart>(context, listen: false).removeItem(cartItem.productId);
       },
